@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     private float normalSpeed = 5;
     private float sprintSpeed = 15;
-    private float turnSpeed = 5;
 
     private float horizontalInput;
     private float forwardInput;
