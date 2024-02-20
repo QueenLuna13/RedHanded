@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private float normalSpeed = 5;
     private float sprintSpeed = 15;
+    public float stamina = 100f;
+    public float maxStamina = 100f;
+    public float staminaDepletionRate = 10f;
 
     private float horizontalInput;
     private float forwardInput;
@@ -30,10 +33,31 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
 
-        // Check if sprint button is pressed
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
-        // Adjust speed based on sprinting
+        // Check if sprint button is pressed and there's enough stamina
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
+
+        // Adjust speed based on sprinting and manage stamina
         float currentSpeed = isSprinting ? sprintSpeed : normalSpeed;
+        if (isSprinting)
+        {
+            stamina -= Time.deltaTime * staminaDepletionRate; // Adjust the depletion rate as needed
+            stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+
+            // If stamina is depleted, prevent further depletion
+            if (stamina == 0f)
+            {
+                currentSpeed = normalSpeed;
+            }
+        }
+        else
+        {
+            // Regenerate stamina if not sprinting and not holding the sprint button
+            if (!Input.GetKey(KeyCode.LeftShift) && stamina < maxStamina)
+            {
+                stamina += Time.deltaTime * staminaDepletionRate;
+                stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+            }
+        }
 
         Vector3 forward = cameraController.transform.forward;
         forward.y = 0f;
@@ -59,6 +83,5 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = playerScale;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         }
-
     }
 }
