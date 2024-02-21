@@ -1,46 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Flashlight : MonoBehaviour
 {
     public Light spotlight;
-    public GameObject overlayCanvas;
-    public GameObject overlayText;
+    public GameObject flashlightOverlay; // Reference to the flashlight overlay child object
 
     private bool overlayShown = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (spotlight == null){
+        if (spotlight == null)
+        {
             spotlight = GetComponentInChildren<Light>();
         }
 
-        if (overlayCanvas != null && overlayText != null){
-            overlayCanvas.SetActive(true);
-            overlayText.SetActive(true);
+        if (flashlightOverlay != null)
+        {
+            flashlightOverlay.SetActive(true);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F)){
-            if (overlayShown){
-                if (spotlight != null){
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (overlayShown)
+            {
+                if (spotlight != null)
+                {
                     spotlight.enabled = !spotlight.enabled;
                 }
 
-                
+                // Disable flashlight overlay after first F key press
                 overlayShown = false;
-                if (overlayCanvas != null){
-                    overlayCanvas.SetActive(false);
-                    overlayText.SetActive(false);
+                if (flashlightOverlay != null)
+                {
+                    flashlightOverlay.SetActive(false);
                 }
-            }else{
-                if (spotlight != null){
+            }
+            else
+            {
+                // Toggle flashlight
+                if (spotlight != null)
+                {
                     spotlight.enabled = !spotlight.enabled;
                 }
             }

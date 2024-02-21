@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NavigationScript : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class NavigationScript : MonoBehaviour
         {
             // Visualize the line of sight
             Debug.DrawLine(transform.position, player.position, Color.red);
-            // End the game or take appropriate action
+            // End the game
             EndGame();
         }
     }
@@ -79,9 +80,9 @@ public class NavigationScript : MonoBehaviour
 
     void EndGame()
     {
-        // Implement your game-ending logic here
-        // You may want to show a game over screen or handle other end-game actions
+        // Ends the game
         Debug.Log("Game Over");
+        SceneManager.LoadScene("GameOver");
     }
 
     Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
