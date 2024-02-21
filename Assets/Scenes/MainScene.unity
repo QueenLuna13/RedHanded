@@ -1275,9 +1275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35441c17ce224041836103f376b35bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stamina: 3
-  maxStamina: 3
-  staminaDepletionRate: 1
   cameraController: {fileID: 1713654807}
 --- !u!54 &436800440
 Rigidbody:
@@ -2625,7 +2622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901838601}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8999996, y: 0, z: -1.0999985}
+  m_LocalPosition: {x: 1.8999996, y: 0.28, z: -1.0999985}
   m_LocalScale: {x: 40.161953, y: 2.1125395, z: 40.161953}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3933,7 +3930,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713654802}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 8.184, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4096,7 +4093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723051964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -54.2, y: 0, z: 62.3}
+  m_LocalPosition: {x: -54.2, y: 0.26, z: 62.3}
   m_LocalScale: {x: 40.161953, y: 2.1125395, z: 40.161953}
   m_ConstrainProportionsScale: 0
   m_Children: []

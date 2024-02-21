@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private float normalSpeed = 5;
     private float sprintSpeed = 15;
-    public float stamina = 100f;
-    public float maxStamina = 100f;
-    public float staminaDepletionRate = 10f;
+    private float stamina = 100f;
+    private float maxStamina = 100f;
+    private float staminaDepletionRate = 10f;
 
     private float horizontalInput;
     private float forwardInput;
