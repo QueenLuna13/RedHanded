@@ -33,14 +33,23 @@ public class Pickup : MonoBehaviour
 
     void PickUpItem(){
         if (itemToPickup.CompareTag("Key")){
+            obtainedKeyUI.SetActive(true);
+            Invoke("HideObtainedUI", 2f);
             keyCount++; 
             UpdateKeyCountUI();
         }else if (itemToPickup.CompareTag("Statue")){
+            obtainedStatueUI.SetActive(true);
+            Invoke("HideObtainedUI", 2f);
             hasStatue = true;
             UpdateStatueUI();
         }
 
         Destroy(itemToPickup);
+    }
+
+    void HideObtainedUI(){
+        obtainedKeyUI.SetActive(false);
+        obtainedStatueUI.SetActive(false);
     }
 
     void UpdateKeyCountUI(){
