@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float stamina = 3f;
     private float maxStamina = 3f;
     private float staminaDepletionRate = 1f;
+    public Image staminaBar;
 
     private float horizontalInput;
     private float forwardInput;
@@ -82,6 +84,14 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = playerScale;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        }
+
+        UpdateStaminaUI();
+    }
+
+    void UpdateStaminaUI(){
+        if(staminaBar != null){
+            staminaBar.fillAmount = stamina / maxStamina;
         }
     }
 }
