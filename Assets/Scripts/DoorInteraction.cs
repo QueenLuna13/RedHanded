@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DoorInteraction : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public LayerMask itemLayer;
+    public float interactDistance = 3f;
+    public GameObject doorOpenUI;
+    public TextMeshProUGUI keyCountText;
+    public TextMeshProUGUI statueText;
+
+    private GameObject statueDoor;
+
     void Start()
     {
         
