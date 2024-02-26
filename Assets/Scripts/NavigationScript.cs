@@ -1,22 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class NavigationScript : MonoBehaviour
 {
     public Transform player;
+    public List<Transform> waypoints; // Define waypoints in the Inspector
     private UnityEngine.AI.NavMeshAgent agent;
-    public float wanderRadius = 10f;
-    public float wanderTimer = 5f;
-    private float timer;
+    public float patrolStoppingDistance = 0.1f; // Adjust the stopping distance for patrolling
+    public float chasingStoppingDistance = 1.5f; // Adjust the stopping distance for chasing the player
     public float touchingDistance = 1.5f; // Adjust the distance for considering the player touched
+
+    private int currentWaypointIndex = 0;
+    private int lastPatrolWaypointIndex = 0;
+    private bool isChasingPlayer = false;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        timer = wanderTimer;
+
+        // Check if there are waypoints defined
+        if (waypoints.Count == 0)
+        {
+            Debug.LogError("No waypoints defined for patrolling!");
+            enabled = false; // Disable the script if no waypoints are defined
+            return;
+        }
+
+        SetDestinationToNextWaypoint();
     }
 
     // Update is called once per frame
@@ -24,19 +38,34 @@ public class NavigationScript : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= 5f) // If player is close, follow the player
+        if (distanceToPlayer <= chasingStoppingDistance) // If player is close, chase the player
         {
-            agent.destination = player.position;
-
             // Check if the player is touched
             if (distanceToPlayer <= touchingDistance)
             {
                 EndGame();
             }
+            else
+            {
+                // Set the destination to the player
+                agent.destination = player.position;
+                isChasingPlayer = true;
+            }
         }
-        else // Wander when player is not close
+        else // Patrol between waypoints when the player is not close
         {
-            Wander();
+            // If returning from chasing, set the destination to the last waypoint reached
+            if (isChasingPlayer && agent.remainingDistance < patrolStoppingDistance && !agent.pathPending)
+            {
+                currentWaypointIndex = lastPatrolWaypointIndex;
+                isChasingPlayer = false;
+            }
+
+            // Check if the enemy has reached the current waypoint
+            if (agent.remainingDistance < patrolStoppingDistance && !agent.pathPending && !isChasingPlayer)
+            {
+                SetDestinationToNextWaypoint();
+            }
         }
 
         // Check if the player is in line of sight
@@ -46,18 +75,6 @@ public class NavigationScript : MonoBehaviour
             Debug.DrawLine(transform.position, player.position, Color.red);
             // End the game
             EndGame();
-        }
-    }
-
-    void Wander()
-    {
-        timer += Time.deltaTime;
-
-        if (timer >= wanderTimer)
-        {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            agent.SetDestination(newPos);
-            timer = 0;
         }
     }
 
@@ -78,23 +95,22 @@ public class NavigationScript : MonoBehaviour
         return false;
     }
 
+    void SetDestinationToNextWaypoint()
+    {
+        // Set the destination to the next waypoint in the list
+        agent.destination = waypoints[currentWaypointIndex].position;
+
+        // Increment the waypoint index for the next frame
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
+
+        // Save the current waypoint index as the last patrol waypoint index
+        lastPatrolWaypointIndex = currentWaypointIndex;
+    }
+
     void EndGame()
     {
         // Ends the game
         Debug.Log("Game Over");
         SceneManager.LoadScene("GameOver");
-    }
-
-    Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * distance;
-
-        randomDirection += origin;
-
-        UnityEngine.AI.NavMeshHit navHit;
-
-        UnityEngine.AI.NavMesh.SamplePosition(randomDirection, out navHit, distance, layermask);
-
-        return navHit.position;
     }
 }
