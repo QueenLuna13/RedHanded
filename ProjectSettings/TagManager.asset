@@ -6,11 +6,13 @@ TagManager:
   tags:
   - Key
   - Statue
+  - statueDoor
+  - exitDoor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Pickup
+  - Interactable
   - Water
   - UI
   - 
