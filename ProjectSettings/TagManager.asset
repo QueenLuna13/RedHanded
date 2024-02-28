@@ -8,6 +8,7 @@ TagManager:
   - Statue
   - statueDoor
   - exitDoor
+  - NavMeshModifier
   layers:
   - Default
   - TransparentFX

@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
 
         // Check if sprint button is pressed and there's enough stamina
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Fire3") && stamina > 0;
 
         // Adjust speed based on sprinting and manage stamina
         float currentSpeed = isSprinting ? sprintSpeed : normalSpeed;
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // Regenerate stamina if not sprinting and not holding the sprint button
-            if (!Input.GetKey(KeyCode.LeftShift) && stamina < maxStamina)
+            if (!Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Fire3") && stamina < maxStamina)
             {
                 stamina += Time.deltaTime * staminaDepletionRate;
                 stamina = Mathf.Clamp(stamina, 0f, maxStamina);
@@ -74,13 +74,13 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(moveDirection * Time.deltaTime * currentSpeed);
 
         // Check if crouch button is pressed
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
         {
             transform.localScale = crouchScale;
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
         // Check if crouch button isn't pressed
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
         {
             transform.localScale = playerScale;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
