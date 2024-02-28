@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
-public class NavigationScript : MonoBehaviour
+public class PatrollingAndChasingScript : MonoBehaviour
 {
-    public Transform player;
     public List<Transform> waypoints; // Define waypoints in the Inspector
+    public Transform player; // Reference to the player object
     private UnityEngine.AI.NavMeshAgent agent;
     public float patrolStoppingDistance = 0.1f; // Adjust the stopping distance for patrolling
+    public float waitTimeAtWaypoint = 2f; // Adjust the time to stop at each waypoint
+    public float fieldOfViewAngle = 90f; // Adjust the field of view angle
+    public float maxViewDistance = 10f; // Maximum viewing distance for the guard
     public float chasingStoppingDistance = 1.5f; // Adjust the stopping distance for chasing the player
-    public float touchingDistance = 1.5f; // Adjust the distance for considering the player touched
 
     private int currentWaypointIndex = 0;
-    private int lastPatrolWaypointIndex = 0;
-    private bool isChasingPlayer = false;
+    private bool isWaitingAtWaypoint = false;
+    private float waitTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,81 +37,101 @@ public class NavigationScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= chasingStoppingDistance) // If player is close, chase the player
+        if (IsPlayerInFieldOfView())
         {
-            // Check if the player is touched
-            if (distanceToPlayer <= touchingDistance)
-            {
-                EndGame();
-            }
-            else
-            {
-                // Set the destination to the player
-                agent.destination = player.position;
-                isChasingPlayer = true;
-            }
+            ChasePlayer();
         }
-        else // Patrol between waypoints when the player is not close
+        else
         {
-            // If returning from chasing, set the destination to the last waypoint reached
-            if (isChasingPlayer && agent.remainingDistance < patrolStoppingDistance && !agent.pathPending)
-            {
-                currentWaypointIndex = lastPatrolWaypointIndex;
-                isChasingPlayer = false;
-            }
-
-            // Check if the enemy has reached the current waypoint
-            if (agent.remainingDistance < patrolStoppingDistance && !agent.pathPending && !isChasingPlayer)
-            {
-                SetDestinationToNextWaypoint();
-            }
-        }
-
-        // Check if the player is in line of sight
-        if (IsPlayerInLineOfSight())
-        {
-            // Visualize the line of sight
-            Debug.DrawLine(transform.position, player.position, Color.red);
-            // End the game
-            EndGame();
+            Patrol();
         }
     }
 
-    bool IsPlayerInLineOfSight()
+    void Patrol()
     {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, player.position - transform.position, out hit, Mathf.Infinity))
+        // Check if the enemy has reached the current waypoint
+        if (agent.remainingDistance < patrolStoppingDistance && !agent.pathPending)
         {
-            if (hit.collider.CompareTag("Player"))
+            if (!isWaitingAtWaypoint)
             {
-                // Player is in line of sight
-                return true;
+                StartWaitingAtWaypoint();
+            }
+            else
+            {
+                ContinueWaiting();
             }
         }
+    }
 
-        // Player is not in line of sight
-        return false;
+    void StartWaitingAtWaypoint()
+    {
+        // Stop at the current waypoint
+        agent.isStopped = true;
+        isWaitingAtWaypoint = true;
+        waitTimer = 0f;
+    }
+
+    void ContinueWaiting()
+    {
+        // Increment the wait timer
+        waitTimer += Time.deltaTime;
+
+        // Check if the wait time is over
+        if (waitTimer >= waitTimeAtWaypoint)
+        {
+            // Resume patrolling
+            SetDestinationToNextWaypoint();
+            isWaitingAtWaypoint = false;
+            agent.isStopped = false;
+        }
+    }
+
+    void ChasePlayer()
+    {
+        // Set the destination to the player's position if the player is within the maximum view distance
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (distanceToPlayer <= maxViewDistance)
+        {
+            agent.destination = player.position;
+
+            // Check if the player is touched
+            if (distanceToPlayer <= chasingStoppingDistance)
+            {
+                EndGame();
+            }
+        }
+        else
+        {
+            // Player is out of maximum view distance, resume patrolling
+            Patrol();
+        }
+    }
+
+    bool IsPlayerInFieldOfView()
+    {
+        if (player == null)
+        {
+            Debug.LogError("Player reference not set!");
+            return false;
+        }
+
+        Vector3 directionToPlayer = player.position - transform.position;
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+
+        return angleToPlayer <= fieldOfViewAngle * 0.5f;
     }
 
     void SetDestinationToNextWaypoint()
     {
         // Set the destination to the next waypoint in the list
-        agent.destination = waypoints[currentWaypointIndex].position;
-
-        // Increment the waypoint index for the next frame
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
-
-        // Save the current waypoint index as the last patrol waypoint index
-        lastPatrolWaypointIndex = currentWaypointIndex;
+        agent.destination = waypoints[currentWaypointIndex].position;
     }
 
     void EndGame()
     {
         // Ends the game
         Debug.Log("Game Over");
-        SceneManager.LoadScene("GameOver");
+        // Add your game over logic or scene transition here
     }
 }
