@@ -1860,6 +1860,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &283957723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0e278ffdf17b65746b026488f60499c2, type: 3}
+  m_PrefabInstance: {fileID: 1498195942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &315181664
 GameObject:
   m_ObjectHideFlags: 0
@@ -6297,27 +6302,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!95 &722474243
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205749903}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 41a5ceb542587034dba016a5ce6cd50d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &725422854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 15ef18c86f675cd43b96fc4f85aee2d4, type: 3}
@@ -6385,6 +6369,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.035065975, y: 0.085827306, z: 0.1717868}
   m_Center: {x: 0.0024021522, y: -4.656613e-10, z: -0.06532814}
+--- !u!95 &728230943
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283957723}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0dcfb160676f81741aed9f672d0a2485, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &741419386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e5cefb1d2c2b6ba499a088880b317774, type: 3}
@@ -7579,7 +7584,7 @@ Animator:
   m_GameObject: {fileID: 901290587}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 41a5ceb542587034dba016a5ce6cd50d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0dcfb160676f81741aed9f672d0a2485, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9132,9 +9137,9 @@ Transform:
   m_LocalScale: {x: 0.0007487859, y: 0.00090117886, z: 0.0017376072}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1333730050}
   - {fileID: 1116947338}
   - {fileID: 882915528}
+  - {fileID: 1333730050}
   m_Father: {fileID: 1298244224}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10336,12 +10341,6 @@ Transform:
   m_LocalScale: {x: 1335.4952, y: 1109.6576, z: 575.5041}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1895482799}
-  - {fileID: 38485394}
-  - {fileID: 488769159}
-  - {fileID: 1333730050}
-  - {fileID: 1116947338}
-  - {fileID: 882915528}
   - {fileID: 1498195943}
   - {fileID: 1041659092}
   m_Father: {fileID: 0}
@@ -10539,9 +10538,9 @@ Transform:
   m_LocalScale: {x: 0.00070865266, y: 0.00090117904, z: 0.001989976}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 64545155}
   - {fileID: 877155098}
   - {fileID: 1822415369}
+  - {fileID: 64545155}
   m_Father: {fileID: 1714405556}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11931,7 +11930,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0e278ffdf17b65746b026488f60499c2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 722474243}
+      addedObject: {fileID: 728230943}
     - targetCorrespondingSourceObject: {fileID: -8973100289992178715, guid: 0e278ffdf17b65746b026488f60499c2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1498195947}
@@ -13818,9 +13817,6 @@ Transform:
   m_LocalScale: {x: 1411.1285, y: 1109.6575, z: 502.51865}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 64545155}
-  - {fileID: 877155098}
-  - {fileID: 1822415369}
   - {fileID: 408765406}
   - {fileID: 1334663945}
   m_Father: {fileID: 0}
