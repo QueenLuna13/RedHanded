@@ -3886,46 +3886,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 868370302043257421, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 517f2c92eff8d8840985738a7a008556, type: 2}
-    - target: {fileID: 868370302043257421, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 868370302043257421, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2155026733925113301, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1713654802}
-    - target: {fileID: 4018376366188385762, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 517f2c92eff8d8840985738a7a008556, type: 2}
-    - target: {fileID: 4018376366188385762, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4018376366188385762, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6102677367217914960, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 517f2c92eff8d8840985738a7a008556, type: 2}
-    - target: {fileID: 6102677367217914960, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6102677367217914960, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7817404940754463445, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
       propertyPath: m_Name
       value: PauseMenu
