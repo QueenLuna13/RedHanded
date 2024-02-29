@@ -1,33 +1,55 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
+    public AudioClip buttonSound; // Button click sound
+    public AudioSource audioSource; // AudioSource component for playing the sound
+
     // Goes to MainScene where gameplay is
-    public void PlayGame(){
-        SceneManager.LoadSceneAsync(1);
-        ResetGameState();
+    public void PlayGame()
+    {
+        StartCoroutine(PlayAndLoad(1));
     }
     
     // Goes to the main menu scene
-    public void Main(){
-        SceneManager.LoadSceneAsync(0);
-        ResetGameState();
+    public void Main()
+    {
+        StartCoroutine(PlayAndLoad(0));
     }
 
     // Goes to the credit scene
-    public void Credits(){
-        SceneManager.LoadSceneAsync(2);
+    public void Credits()
+    {
+        StartCoroutine(PlayAndLoad(2));
     }
 
     // Quits the game
-    public void QuitGame(){
+    public void QuitGame()
+    {
+        StartCoroutine(PlayAndQuit());
+    }
+
+    private IEnumerator PlayAndLoad(int sceneIndex)
+    {
+        PlayButtonClickSound();
+        yield return new WaitForSecondsRealtime(buttonSound.length);
+        SceneManager.LoadSceneAsync(sceneIndex);
+    }
+
+    private IEnumerator PlayAndQuit()
+    {
+        PlayButtonClickSound();
+        yield return new WaitForSecondsRealtime(buttonSound.length);
         Application.Quit();
     }
 
-    // Function to reset the game state
-    private void ResetGameState(){
-        PauseMenu.GameIsPaused = false;
-        Time.timeScale = 1f;
+    private void PlayButtonClickSound()
+    {
+        if (audioSource != null && buttonSound != null)
+        {
+            audioSource.PlayOneShot(buttonSound);
+        }
     }
 }
