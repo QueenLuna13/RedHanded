@@ -6,6 +6,8 @@ public class Flashlight : MonoBehaviour
 {
     public Light spotlight;
     public GameObject flashlightOverlay; // Reference to the flashlight overlay child object
+    public AudioSource audioSource;
+    public AudioClip toggleSound;
 
     private bool overlayShown = true;
 
@@ -48,6 +50,12 @@ public class Flashlight : MonoBehaviour
                 if (spotlight != null)
                 {
                     spotlight.enabled = !spotlight.enabled;
+                }
+
+                // Play toggle sound if available
+                if (toggleSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(toggleSound);
                 }
             }
         }

@@ -17,8 +17,18 @@ public class Interaction : MonoBehaviour
     private GameObject interact;
     private int keyCount = 0;
     private int statueCount = 0;
+    private AudioManager audioManager;
 
     private bool statueDoorOpened = false;
+
+    void Start()
+    {
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager not found in the scene.");
+        }
+    }
 
     void Update()
     {
@@ -84,6 +94,11 @@ public class Interaction : MonoBehaviour
             Invoke("HideObtainedUI", 2f);
             keyCount++;
             UpdateKeyCountUI();
+            
+            if (audioManager != null)
+            {
+                audioManager.PlayPickupSound(transform.position);
+            }
         }
         else if (interact.CompareTag("Statue"))
         {
@@ -91,6 +106,11 @@ public class Interaction : MonoBehaviour
             Invoke("HideObtainedUI", 2f);
             statueCount++;
             UpdateStatueCountUI();
+
+            if (audioManager != null)
+            {
+                audioManager.PlayPickupSound(transform.position);
+            }
         }
 
         Destroy(interact);
@@ -128,8 +148,12 @@ public class Interaction : MonoBehaviour
                 Invoke("HideObtainedUI", 2f);
             }
         }
-    }
 
+        if (audioManager != null)
+        {
+            audioManager.PlayDoorOpenSound(transform.position);
+        }
+    }
 
     void HideObtainedUI()
     {
