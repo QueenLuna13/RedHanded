@@ -1,34 +1,45 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinScreen : MonoBehaviour
+public class WinGame : MonoBehaviour
 {
-    void Update()
+    public string winScreenSceneName = "WinScreen";
+    public string mainSceneName = "MainScene"; // Change this to the name of your main scene
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Check if the player presses the "I" key
-        if (Input.GetKeyDown(KeyCode.I))
+        // Check if the player collides with the trigger object
+        if (other.CompareTag("Player"))
         {
             // Load the WinScreen scene
-            SceneManager.LoadScene("WinScreen");
+            SceneManager.LoadScene(winScreenSceneName);
 
             // Optional: You can disable the current camera in MainScene
             Camera mainCamera = Camera.main;
-
-            // Check if the camera is not null and has not been destroyed
-            if (mainCamera != null && mainCamera.gameObject != null)
+            if (mainCamera != null)
             {
                 mainCamera.gameObject.SetActive(false);
             }
+        }
+    }
 
-            // Optional: You can also disable other objects in MainScene
-            // For example, if there's a player object
-            GameObject playerObject = GameObject.FindWithTag("Player");
+    private void OnEnable()
+    {
+        // Enable the camera in WinScreen scene when this script is enabled
+        Camera winScreenCamera = Camera.main;
+        if (winScreenCamera != null)
+        {
+            winScreenCamera.gameObject.SetActive(true);
+        }
+    }
 
-            // Check if the player object is not null and has not been destroyed
-            if (playerObject != null && playerObject.gameObject != null)
-            {
-                playerObject.gameObject.SetActive(false);
-            }
+    private void OnDisable()
+    {
+        // Disable the camera in MainScene when this script is disabled
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            mainCamera.gameObject.SetActive(false);
         }
     }
 }
