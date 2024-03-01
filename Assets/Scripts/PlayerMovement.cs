@@ -19,10 +19,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerScale = new Vector3(1, 1f, 1);
 
     public CameraController cameraController;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+
         if (cameraController == null)
         {
             cameraController = Camera.main.GetComponentInParent<CameraController>();
@@ -70,8 +73,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate the movement direction based on camera rotation
         Vector3 moveDirection = forward * forwardInput + right * horizontalInput;
-        // Moves the player based on input and camera rotation
-        transform.Translate(moveDirection * Time.deltaTime * currentSpeed);
+
+        // Apply force to the Rigidbody for smoother movement
+        rb.velocity = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, moveDirection.z * currentSpeed);
 
         // Check if crouch button is pressed
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
@@ -89,8 +93,10 @@ public class PlayerMovement : MonoBehaviour
         UpdateStaminaUI();
     }
 
-    void UpdateStaminaUI(){
-        if(staminaBar != null){
+    void UpdateStaminaUI()
+    {
+        if (staminaBar != null)
+        {
             staminaBar.fillAmount = stamina / maxStamina;
         }
     }
