@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-public class Agent_AI : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
     public List<Transform> wayPoint;
     public float lineOfSightDistance = 10f;
@@ -95,7 +95,7 @@ public class Agent_AI : MonoBehaviour
         if (distanceToPlayer <= touchingDistance)
         {
             // Game over scenario
-            SceneManager.LoadScene("GameOverScene"); // Replace with the name of your game over scene
+            SceneManager.LoadScene("GameOver"); // Replace with the name of your game over scene
         }
     }
 }
