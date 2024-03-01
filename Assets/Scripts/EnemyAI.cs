@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement; // Add this line to use SceneManager
+using UnityEngine.SceneManagement;
 
 public class Agent_AI : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class Agent_AI : MonoBehaviour
     public float lineOfSightDistance = 10f;
     public float lineOfSightAngle = 45f;
     public float patrolDelay = 2f;
+    public float touchingDistance = 2f; // Adjust this distance for touching threshold
 
     NavMeshAgent navMeshAgent;
 
@@ -17,14 +18,12 @@ public class Agent_AI : MonoBehaviour
     private bool isPatrolling = true;
     private float patrolTimer = 0f;
 
-    // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         Patrol();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (CanSeePlayer())
@@ -35,9 +34,11 @@ public class Agent_AI : MonoBehaviour
         {
             Patrol();
         }
+
+        CheckPlayerGuardCollision();
     }
 
-    private void Patrol()
+    void Patrol()
     {
         if (wayPoint.Count == 0)
         {
@@ -46,14 +47,12 @@ public class Agent_AI : MonoBehaviour
 
         float distanceToWaypoint = Vector3.Distance(wayPoint[currentWaypointIndex].position, transform.position);
 
-        // Check if the agent is close enough to the current waypoint
         if (distanceToWaypoint <= 2)
         {
             if (patrolTimer <= 0)
             {
                 currentWaypointIndex = (currentWaypointIndex + 1) % wayPoint.Count;
                 patrolTimer = patrolDelay;
-                // Set the destination to the current waypoint
                 navMeshAgent.SetDestination(wayPoint[currentWaypointIndex].position);
             }
             else
@@ -63,39 +62,40 @@ public class Agent_AI : MonoBehaviour
         }
         else
         {
-            // Set the destination to the current waypoint
             navMeshAgent.SetDestination(wayPoint[currentWaypointIndex].position);
         }
     }
 
-    private void FollowPlayer()
+    void FollowPlayer()
     {
-        // Set the destination to the player's position
         navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
-        isPatrolling = false; // Stop patrolling when following the player
+        isPatrolling = false;
     }
 
-    private bool CanSeePlayer()
+    bool CanSeePlayer()
     {
         Vector3 directionToPlayer = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer.normalized);
 
         if (angleToPlayer <= lineOfSightAngle && directionToPlayer.magnitude <= lineOfSightDistance)
         {
-            // Player is within line of sight
-            // Handle game over when the enemy touches the player
-            Collider playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>();
-            if (playerCollider != null && playerCollider.bounds.Intersects(GetComponent<Collider>().bounds))
-            {
-                // Game over scenario
-                SceneManager.LoadScene("GameOver");
-            }
-
+            isPatrolling = false;
             return true;
         }
 
-        // Player is not within line of sight
-        isPatrolling = true; // Resume patrolling when player is out of sight
+        isPatrolling = true;
         return false;
+    }
+
+    void CheckPlayerGuardCollision()
+    {
+        // Check if the guard is close enough to the player to trigger game over
+        float distanceToPlayer = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
+
+        if (distanceToPlayer <= touchingDistance)
+        {
+            // Game over scenario
+            SceneManager.LoadScene("GameOverScene"); // Replace with the name of your game over scene
+        }
     }
 }

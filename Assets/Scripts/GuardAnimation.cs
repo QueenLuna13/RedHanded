@@ -27,8 +27,15 @@ public class GuardAnimation : MonoBehaviour
             // Reset the timer
             timer = 0f;
 
-            // Trigger the walk animation
-            animator.SetBool("WalkTrigger", isWalking);
+            // Gradually transition to the walk animation
+            if (isWalking)
+            {
+                animator.CrossFade("WalkAnimation", 0.25f); // Adjust the blending time as needed
+            }
+            else
+            {
+                animator.CrossFade("IdleAnimation", 0.25f); // Adjust the blending time as needed
+            }
 
             // Debug log to check if animation is triggered
             Debug.Log("Walking animation triggered. isWalking: " + isWalking);

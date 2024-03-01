@@ -15,8 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float forwardInput;
 
-    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
-    private Vector3 playerScale = new Vector3(1, 1f, 1);
+    private Vector3 originalPlayerScale;
+    private bool isCrouching = false;
 
     public CameraController cameraController;
     private Rigidbody rb;
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        originalPlayerScale = transform.localScale;
 
         if (cameraController == null)
         {
@@ -80,17 +81,35 @@ public class PlayerMovement : MonoBehaviour
         // Check if crouch button is pressed
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
         {
-            transform.localScale = crouchScale;
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            Crouch();
         }
         // Check if crouch button isn't pressed
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
         {
-            transform.localScale = playerScale;
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            Uncrouch();
         }
 
         UpdateStaminaUI();
+    }
+
+    void Crouch()
+    {
+        if (!isCrouching)
+        {
+            isCrouching = true;
+            transform.localScale = originalPlayerScale * 0.5f;
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        }
+    }
+
+    void Uncrouch()
+    {
+        if (isCrouching)
+        {
+            isCrouching = false;
+            transform.localScale = originalPlayerScale;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        }
     }
 
     void UpdateStaminaUI()
