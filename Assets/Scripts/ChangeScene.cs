@@ -35,6 +35,7 @@ public class ChangeScene : MonoBehaviour
     {
         PlayButtonClickSound();
         yield return new WaitForSecondsRealtime(buttonSound.length);
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync(sceneIndex);
     }
 
