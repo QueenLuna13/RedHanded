@@ -11,6 +11,7 @@ public class EnemyAI : MonoBehaviour
     public float lineOfSightAngle = 45f;
     public float patrolDelay = 2f;
     public float touchingDistance = 2f; // Adjust this distance for touching threshold
+    public GameObject followOverlay;
 
     NavMeshAgent navMeshAgent;
 
@@ -22,6 +23,8 @@ public class EnemyAI : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         Patrol();
+        if (followOverlay != null)
+            followOverlay.SetActive(false);
     }
 
     void Update()
@@ -29,10 +32,14 @@ public class EnemyAI : MonoBehaviour
         if (CanSeePlayer())
         {
             FollowPlayer();
+            if (followOverlay != null)
+                followOverlay.SetActive(true);
         }
         else if (isPatrolling)
         {
             Patrol();
+            if (followOverlay != null)
+            followOverlay.SetActive(false);
         }
 
         CheckPlayerGuardCollision();
