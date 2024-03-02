@@ -14,15 +14,9 @@ public class WinGame : MonoBehaviour
             // Load the WinScreen scene
             SceneManager.LoadScene(winScreenSceneName);
 
-            // Optional: You can disable the current camera in MainScene
-            Camera mainCamera = Camera.main;
-            if (mainCamera != null)
-            {
-                mainCamera.gameObject.SetActive(false);
-            }
-        }
     }
-
+    }
+    
     private void OnEnable()
     {
         // Enable the camera in WinScreen scene when this script is enabled
