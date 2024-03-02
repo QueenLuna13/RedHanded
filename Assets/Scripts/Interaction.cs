@@ -15,6 +15,7 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI statueText;
 
     private GameObject interact;
+    public GameObject Glass;
     private int keyCount = 0;
     private int statueCount = 0;
     private AudioManager audioManager;
@@ -127,6 +128,22 @@ public class Interaction : MonoBehaviour
                 keyCount -= 2;
                 UpdateKeyCountUI();
                 statueDoorOpened = true;
+                if (Glass != null)
+                {
+                    Animator glassAnimator = Glass.GetComponent<Animator>();
+                    if (glassAnimator != null)
+                    {
+                        glassAnimator.SetTrigger("Down"); // Adjust "TriggerAnimation" to match your animation trigger name
+                    }
+                    else
+                    {
+                        Debug.LogError("Animator component not found on room animation object.");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Room animation object reference is null.");
+                }
             }
             else
             {
