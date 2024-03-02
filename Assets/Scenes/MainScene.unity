@@ -277,10 +277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c86f1cb6323fe247ba3fc7bf52a9b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 436800438}
-  navMeshAgent: {fileID: 11154748}
-  animator: {fileID: 0}
-  detectionRadius: 5
 --- !u!1 &21853235
 GameObject:
   m_ObjectHideFlags: 0
@@ -7773,6 +7769,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0e278ffdf17b65746b026488f60499c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e278ffdf17b65746b026488f60499c2, type: 3}
       propertyPath: m_TagString
       value: statueDoor
       objectReference: {fileID: 0}
@@ -9039,6 +9039,10 @@ PrefabInstance:
     - target: {fileID: 7817404940754463445, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
       propertyPath: m_Name
       value: PauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518292828914687095, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41349,7 +41353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4640427497506035049, guid: fee1617b4d6e7504bac804922dbd3132, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612316694507212843, guid: fee1617b4d6e7504bac804922dbd3132, type: 3}
       propertyPath: m_AnchoredPosition.y
