@@ -7,6 +7,9 @@ MonoImporter:
   - pickupUI: {fileID: 3692658643540737202, guid: fee1617b4d6e7504bac804922dbd3132, type: 3}
   - obtainedKeyUI: {instanceID: 0}
   - obtainedStatueUI: {instanceID: 0}
+  - doorOpenUI: {instanceID: 0}
+  - doorStatueUI: {instanceID: 0}
+  - doorExitUI: {instanceID: 0}
   - keyCountText: {instanceID: 0}
   - statueText: {instanceID: 0}
   executionOrder: 0
