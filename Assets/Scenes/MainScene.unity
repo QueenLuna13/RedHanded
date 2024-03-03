@@ -9724,6 +9724,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 264242693653146945, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 2005136646}
     - target: {fileID: 605305018110593877, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
       propertyPath: audioSource
       value: 
@@ -42475,6 +42479,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &2005136646 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7945752886141842087, guid: 22213710368b05744b1e213a7760b4f3, type: 3}
+  m_PrefabInstance: {fileID: 471519364}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2005559567
 GameObject:
   m_ObjectHideFlags: 0
