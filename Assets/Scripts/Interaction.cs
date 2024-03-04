@@ -38,7 +38,7 @@ public class Interaction : MonoBehaviour
         if (isInteractable)
         {
             interact = hit.collider.gameObject;
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButton("Pickup"))
             {
                 Pressed();
             }
