@@ -250,7 +250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33, y: -70}
+  m_AnchoredPosition: {x: 33, y: -21}
   m_SizeDelta: {x: -527.64087, y: -389.8459}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &383305279
@@ -275,9 +275,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Alana Ackley\t\t\t\t\t3D artist, UI designer, level designer\nMichael
     Batista\t\t\t\t\tLead programmer\r\nAlex Hernandez\t\t\t\t\tUI designer, digital
-    artist, materials\r\nJohanna Medina-Aviles\t\t\t3D artist, animator, materials\r\nChelsea
-    Soto\t\t\t\t\tUI designer, programmer\r\nKylie Welch\t\t\t\t\t2D artist, sound
-    design"
+    artist, materials\r\nJohanna Medina-Aviles\t\t\t3D artist, animator, level designer,
+    materials\r\nChelsea Soto\t\t\t\t\tUI designer, programmer\r\nKylie Welch\t\t\t\t\t2D
+    artist, sound designer\nBackground music by Bertsz: https://freesound.org/people/Bertsz/sounds/545454/"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 517f2c92eff8d8840985738a7a008556, type: 2}
   m_sharedMaterial: {fileID: -522178664798663391, guid: 517f2c92eff8d8840985738a7a008556, type: 2}
@@ -304,8 +304,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
-  m_fontSizeBase: 38
+  m_fontSize: 36.14
+  m_fontSizeBase: 36.14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
