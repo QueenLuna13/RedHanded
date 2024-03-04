@@ -19,6 +19,14 @@ public class EnemyAI : MonoBehaviour
     private bool isPatrolling = true;
     private float patrolTimer = 0f;
 
+    // FOOTSTEPS AUDIO
+    public AudioClip footstepSound;
+    public float walkingStepInterval = 0.5f;
+    public float sprintingStepInterval = 0.3f;
+    public float pitchRange = 0.1f;
+    private float stepTimer = 0f;
+    private AudioSource audioSource;
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -43,6 +51,24 @@ public class EnemyAI : MonoBehaviour
         }
 
         CheckPlayerGuardCollision();
+
+        // Play footstep sounds based on the enemy's movement
+        if (navMeshAgent.velocity.magnitude > 0)
+        {
+            if (stepTimer <= 0)
+            {
+                PlayFootstepSound();
+                stepTimer = walkingStepInterval; // Assuming enemy only walks
+            }
+            else
+            {
+                stepTimer -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+        }
     }
 
     void Patrol()
@@ -103,6 +129,19 @@ public class EnemyAI : MonoBehaviour
         {
             // Game over scenario
             SceneManager.LoadScene("GameOver"); // Replace with the name of your game over scene
+        }
+    }
+
+    void PlayFootstepSound()
+    {
+        if (footstepSound != null && audioSource != null)
+        {
+            // Randomize pitch for variation
+            float pitch = Random.Range(1f - pitchRange, 1f + pitchRange);
+            audioSource.pitch = pitch;
+
+            // Play footstep sound
+            audioSource.PlayOneShot(footstepSound);
         }
     }
 }

@@ -21,6 +21,14 @@ public class PlayerMovement : MonoBehaviour
     public CameraController cameraController;
     private Rigidbody rb;
 
+    //FOOTSTEPS AUDIO
+    public AudioClip footstepSound;
+    public float walkingStepInterval = 0.5f;
+    public float sprintingStepInterval = 0.3f;
+    public float pitchRange = 0.1f;
+    private float stepTimer = 0f;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
         {
             cameraController = Camera.main.GetComponentInParent<CameraController>();
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -78,6 +88,24 @@ public class PlayerMovement : MonoBehaviour
         // Apply force to the Rigidbody for smoother movement
         rb.velocity = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, moveDirection.z * currentSpeed);
 
+         // Play footstep sounds based on the player's movement
+        if (horizontalInput != 0 || forwardInput != 0)
+        {
+            if (stepTimer <= 0)
+            {
+                PlayFootstepSound();
+                stepTimer = isSprinting ? sprintingStepInterval : walkingStepInterval;
+            }
+            else
+            {
+                stepTimer -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+        }
+
         // Check if crouch button is pressed
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
         {
@@ -117,6 +145,19 @@ public class PlayerMovement : MonoBehaviour
         if (staminaBar != null)
         {
             staminaBar.fillAmount = stamina / maxStamina;
+        }
+    }
+
+    void PlayFootstepSound()
+    {
+        if (footstepSound != null)
+        {
+            // Randomize pitch for variation
+            float pitch = Random.Range(1f - pitchRange, 1f + pitchRange);
+            audioSource.pitch = pitch;
+
+            // Play footstep sound
+            audioSource.PlayOneShot(footstepSound);
         }
     }
 }
